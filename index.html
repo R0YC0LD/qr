@@ -3,119 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QR Bağlantısı</title>
+    <title>QR Kod Sayfası</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style>
-        /* Modern ve Temiz CSS Tasarımı */
-        :root {
-            --bg-color: #f3f4f6;
-            --card-bg: #ffffff;
-            --text-main: #1f2937;
-            --text-sub: #6b7280;
-            --accent: #2563eb;
-        }
-
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            height: 100vh;
+            background-color: #f3f4f6;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        .container {
-            background-color: var(--card-bg);
-            padding: 2.5rem;
+        .card {
+            background: white;
+            padding: 40px;
             border-radius: 20px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             text-align: center;
-            max-width: 400px;
-            width: 90%;
-            transition: transform 0.3s ease;
-        }
-
-        .container:hover {
-            transform: translateY(-5px);
+            max-width: 350px;
+            width: 100%;
         }
 
         h1 {
-            color: var(--text-main);
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-            font-weight: 700;
+            font-size: 22px;
+            color: #333;
+            margin-bottom: 20px;
         }
 
-        p {
-            color: var(--text-sub);
-            font-size: 0.95rem;
-            margin-bottom: 2rem;
-            line-height: 1.5;
+        #qrcode {
+            margin: 20px auto;
+            padding: 10px;
+            background: white; /* Tarayıcıların daha rahat okuması için beyaz çerçeve */
+            display: flex;
+            justify-content: center;
         }
 
-        .qr-frame {
-            background: white;
-            padding: 15px;
-            border: 2px dashed #e5e7eb;
-            border-radius: 12px;
-            display: inline-block;
-            margin-bottom: 1.5rem;
+        /* Veri Giriş Alanı - Sadece düzenleme için, istersen silebilirsin */
+        .input-group {
+            margin-top: 20px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
         }
 
-        .qr-image {
-            width: 100%;
-            max-width: 250px;
-            height: auto;
-            border-radius: 8px;
-            /* Fotoğraftaki kontrastı biraz artırıp kağıt rengini temizlemek için filtre */
-            filter: contrast(1.2) brightness(1.1) grayscale(100%); 
+        input {
+            width: 90%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            margin-bottom: 10px;
         }
 
-        .scan-btn {
-            background-color: var(--accent);
+        button {
+            background-color: #000;
             color: white;
             border: none;
-            padding: 12px 30px;
-            border-radius: 50px;
-            font-size: 1rem;
-            font-weight: 600;
+            padding: 10px 20px;
+            border-radius: 5px;
             cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-            transition: background 0.3s;
-            box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2);
+            font-weight: bold;
         }
 
-        .scan-btn:hover {
-            background-color: #1d4ed8;
+        button:hover {
+            background-color: #333;
         }
 
-        .footer {
-            margin-top: 2rem;
-            font-size: 0.8rem;
-            color: #9ca3af;
+        p.note {
+            font-size: 12px;
+            color: #777;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
+    <div class="card">
         <h1>Bağlantıya Git</h1>
-        <p>İçeriğe erişmek için aşağıdaki QR kodu telefonunuzun kamerasıyla okutun.</p>
+        
+        <div id="qrcode"></div>
 
-        <div class="qr-frame">
-            <img src="image.png" alt="QR Kod" class="qr-image">
-        </div>
+        <p class="note">Kameranızı açarak kodu taratın.</p>
 
-        <div>
-            <a href="#" class="scan-btn">Kodu Tara</a>
-        </div>
-
-        <div class="footer">
-            Güvenli Bağlantı Noktası &copy; 2026
+        <div class="input-group">
+            <input type="text" id="qr-data" placeholder="Linkinizi buraya yapıştırın" value="https://google.com">
+            <br>
+            <button onclick="generateQR()">Kodu Güncelle</button>
         </div>
     </div>
+
+    <script>
+        var qrcode = new QRCode(document.getElementById("qrcode"), {
+            width: 200,
+            height: 200,
+            colorDark : "#000000",
+            colorLight : "#ffffff",
+            correctLevel : QRCode.CorrectLevel.H
+        });
+
+        function generateQR() {
+            var data = document.getElementById("qr-data").value;
+            if (!data) {
+                alert("Lütfen bir link veya metin girin");
+                return;
+            }
+            qrcode.clear(); // Önceki kodu temizle
+            qrcode.makeCode(data); // Yeni veriyi işle
+        }
+
+        // Sayfa ilk açıldığında varsayılan bir kod oluşturur
+        // BURAYI GÜNCELLE: Fotoğraftaki QR kodun gittiği gerçek linki tırnak içine yazarsan 
+        // sayfa açılır açılmaz o linkin QR kodu görünür.
+        qrcode.makeCode("https://google.com"); 
+    </script>
 
 </body>
 </html>
