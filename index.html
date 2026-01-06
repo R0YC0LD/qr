@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Bağlantısı</title>
+    <style>
+        /* Modern ve Temiz CSS Tasarımı */
+        :root {
+            --bg-color: #f3f4f6;
+            --card-bg: #ffffff;
+            --text-main: #1f2937;
+            --text-sub: #6b7280;
+            --accent: #2563eb;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            transition: transform 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+        }
+
+        h1 {
+            color: var(--text-main);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        p {
+            color: var(--text-sub);
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+            line-height: 1.5;
+        }
+
+        .qr-frame {
+            background: white;
+            padding: 15px;
+            border: 2px dashed #e5e7eb;
+            border-radius: 12px;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+        }
+
+        .qr-image {
+            width: 100%;
+            max-width: 250px;
+            height: auto;
+            border-radius: 8px;
+            /* Fotoğraftaki kontrastı biraz artırıp kağıt rengini temizlemek için filtre */
+            filter: contrast(1.2) brightness(1.1) grayscale(100%); 
+        }
+
+        .scan-btn {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: background 0.3s;
+            box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2);
+        }
+
+        .scan-btn:hover {
+            background-color: #1d4ed8;
+        }
+
+        .footer {
+            margin-top: 2rem;
+            font-size: 0.8rem;
+            color: #9ca3af;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Bağlantıya Git</h1>
+        <p>İçeriğe erişmek için aşağıdaki QR kodu telefonunuzun kamerasıyla okutun.</p>
+
+        <div class="qr-frame">
+            <img src="image.png" alt="QR Kod" class="qr-image">
+        </div>
+
+        <div>
+            <a href="#" class="scan-btn">Kodu Tara</a>
+        </div>
+
+        <div class="footer">
+            Güvenli Bağlantı Noktası &copy; 2026
+        </div>
+    </div>
+
+</body>
+</html>
